@@ -40,56 +40,56 @@ Ext.override(Ext.data.WebStorageProxy,{
 });
 
 Ext.setup({
-	phoneStartupScreen: 'resources/img/twimap_phone_splash.png',
-	tabletStartupScreen: 'resources/img/twimap_tablet_splash.png',
-	icon: 'resources/img/twimap_icon.png',
-	statusBarStyle: 'default',
-	fullscreen: true,
-//	hideAddressBar: false,
-	onReady: function(){
-		Ext.fly('downloading').hide();
-		Ext.getBody().mask(false,'<div class="loading">LOADING...</div>');
+  phoneStartupScreen: 'resources/img/twimap_phone_splash.png',
+  tabletStartupScreen: 'resources/img/twimap_tablet_splash.png',
+  icon: 'resources/img/twimap_icon.png',
+  statusBarStyle: 'default',
+  fullscreen: true,
+//  hideAddressBar: false,
+  onReady: function(){
+    Ext.fly('downloading').hide();
+    Ext.getBody().mask(false,'<div class="loading">LOADING...</div>');
 
     var element = document.createElement('script');
     element.src = 'http://maps.google.com/maps/api/js?sensor=true&v=3.1&callback=mapReady';
     element.type = 'text/javascript';
     var scripts = document.getElementsByTagName('script')[0];
     scripts.parentNode.insertBefore(element, scripts);
-	}
+  }
 });
 
 function mapReady(){
 
-	// Decode URL input
-	var url = document.location.search;
-	if(url && url.length>0){
-		if(url[0] == '?') url = url.slice(1);
-		var args = Ext.urlDecode(url);
+  // Decode URL input
+  var url = document.location.search;
+  if(url && url.length>0){
+    if(url[0] == '?') url = url.slice(1);
+    var args = Ext.urlDecode(url);
 
-		if(Ext.isDefined(args.lat) && Ext.isDefined(args.lng)){
-			var lat = parseFloat(args.lat);
-			var lng = parseFloat(args.lng);
+    if(Ext.isDefined(args.lat) && Ext.isDefined(args.lng)){
+      var lat = parseFloat(args.lat);
+      var lng = parseFloat(args.lng);
 
-			if(lat>90 || lat < -90 || lng > 180 || lng < -180){
-				delete args.lat;
-				delete args.lng;
-			}else{
-				args.lat = lat;
-				args.lng = lng;
-			}
-		}
+      if(lat>90 || lat < -90 || lng > 180 || lng < -180){
+        delete args.lat;
+        delete args.lng;
+      }else{
+        args.lat = lat;
+        args.lng = lng;
+      }
+    }
 
-		if(Ext.isDefined(args.zoom)){
-			var zoom = parseInt(args.zoom);	
-			if(zoom < 0 && zoom > 18){
-				delete args.zoom;
-			}else{
-				args.zoom = zoom;
-			}
-		}
-	}
+    if(Ext.isDefined(args.zoom)){
+      var zoom = parseInt(args.zoom);  
+      if(zoom < 0 && zoom > 18){
+        delete args.zoom;
+      }else{
+        args.zoom = zoom;
+      }
+    }
+  }
 
-	new TwiMap({ mapConfig: args	});
+  new TwiMap({ mapConfig: args  });
 
-	Ext.getBody().unmask();
+  Ext.getBody().unmask();
 }
