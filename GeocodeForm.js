@@ -4,6 +4,7 @@ Ext.ux.GeocodeForm = Ext.extend(Ext.form.FormPanel,{
   initComponent: function(){
     Ext.apply(this,{
       baseCls: 'x-toolbar',
+			cls: 'x-toolbar-dark',
       layout: 'hbox',
       layoutConfig: {
         align: 'middle',
@@ -16,7 +17,8 @@ Ext.ux.GeocodeForm = Ext.extend(Ext.form.FormPanel,{
       },{
         xtype: 'button',
         iconCls: 'locate',
-        ui: 'mask',
+        ui: 'plain',
+				iconMask: true,
         itemsId: 'locbutton',
         handler: this.getCurrentLocation,
         scope: this

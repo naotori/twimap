@@ -2,13 +2,13 @@ Ext.ns("Ext.ux");
 
 Ext.ux.ListItem = Ext.extend(Ext.Component,{
   tpl: '<div class="x-list x-list-flat"><div class="x-list-parent"><div class="ux-itempanel"><strong>{msg}</strong></div></div></div>',
-  data: {msg: ""},
   itemSelector: 'div.ux-itempanel',
 
   selectedCls : "x-item-selected",
   pressedCls : "x-item-pressed",
 
   initComponent: function(){
+		this.data = this.data || {msg: ""};
     Ext.apply(this.data, { msg: this.itemtitle || "" });
 
     this.addEvents('beforeitemselected', 'itemselected');

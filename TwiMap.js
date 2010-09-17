@@ -21,8 +21,8 @@ TwiMap = Ext.extend(Ext.Panel, {
       items: [
         this.buildMapPanel(),
         this.buildHistoryPanel(),
-        this.buildBookmarkForm()
-//        this.buildSettingPanel()
+        this.buildBookmarkForm(),
+        this.buildSettingPanel()
       ]
     });
 
@@ -46,6 +46,10 @@ TwiMap = Ext.extend(Ext.Panel, {
 
     this.bookmarkform.on({
       close: this.onBookmarkFormClose,
+      scope: this
+    });
+    this.settingpanel.on({
+      close: this.onSettingPanelClose,
       scope: this
     });
   },
@@ -84,16 +88,13 @@ TwiMap = Ext.extend(Ext.Panel, {
 
   buildSettingPanel: function(){
     return {
-      xtype: 'panel',
+      xtype: 'settingpanel',
       itemId: this.itemIds.settingpanel,
-      html: '<div><span id="twitter_login"></span></div>',
-      listeners: {
-        afterrender: function(){
-          if(Ext.isDefined(window.twttr)){
-            twttr.anywhere(function (T) { T("#twitter_login").connectButton(); });
-          }
-        }
-      }
+			stores: [
+				this.bookmarkStore,
+				this.historyStore,
+				this.statusStore
+			]
     };
   },
 
@@ -101,7 +102,7 @@ TwiMap = Ext.extend(Ext.Panel, {
     return {
       xtype: 'toolbar',
       itemId: this.itemIds.mappaneltb,
-      defaults: { ui: 'mask' },
+      defaults: { ui: 'plain', iconMask: true },
       layout: {
         pack: 'center'  
       },
@@ -113,12 +114,10 @@ TwiMap = Ext.extend(Ext.Panel, {
         iconCls: 'add',
         handler: this.onAddLocationClick,
         scope: this
-/*
       },{
         iconCls: 'settings',
         handler: this.onSettingsClick,
         scope: this
-*/
       }]
     };
   },
@@ -174,6 +173,10 @@ TwiMap = Ext.extend(Ext.Panel, {
         direction: 'right'
       });
     }
+  },
+
+  onSettingPanelClose: function(){
+    this.onHome();
   },
 
   onHistoryPanelClose: function(){

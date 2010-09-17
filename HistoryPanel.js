@@ -210,7 +210,7 @@ Ext.ux.HistoryPanel = Ext.extend(Ext.Panel,{
       this.actionsheet = new Ext.ActionSheet({
         items: [{
           text: this.msgBody,
-          ui: 'drastic',
+          ui: 'decline',
           handler: function(){
             this.actionsheet.hide();
             var store = this.historyStore;

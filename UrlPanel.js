@@ -46,7 +46,8 @@ Ext.ux.UrlPanel = Ext.extend(Ext.form.FormPanel, {
       itemId: this.itemIds.toolbar,
       defaults: {
         xtype: 'button',
-        ui: 'mask'
+        ui: 'plain',
+				iconMask: true
       },
       items: [{
         iconCls: 'attachment',

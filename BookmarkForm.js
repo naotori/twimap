@@ -152,7 +152,7 @@ Ext.ux.BookmarkForm = Ext.extend(Ext.form.FormPanel, {
       this.actionsheet = new Ext.ActionSheet({
         items: [{
           text: this.msgBody,
-          ui: 'drastic',
+          ui: 'decline',
           handler: function(){
             this.actionsheet.hide();
             var store = this.getStore();
